@@ -16,7 +16,7 @@ type Ttodo struct {
 }
 
 func main() {
-	url := "https://jsonplaceholder.typicode.com/todos/1"
+	url := "https://jsonplaceholder.typicode.com/todos"
 
 	resp, err := http.Get(url)
 
@@ -36,12 +36,14 @@ func main() {
 	fmt.Println(string(body))
 
 	//* want to use a json response
-	var todo Ttodo
-	json.Unmarshal(body, &todo)
+	var todos []Ttodo
+	json.Unmarshal(body, &todos)
 
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	fmt.Printf("%v\n", todo.Title)
+	for i, todo := range todos {
+		fmt.Println(i, todo.Title)
+	}
 }
